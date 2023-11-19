@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t patrickhein/mediathekviewweb:$1 .
+docker build -t hesse/mediathekviewweb:$1 .

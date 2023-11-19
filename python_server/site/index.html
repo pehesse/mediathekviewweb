@@ -1,0 +1,47 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <script type="text/javascript">
+        function ajax(url, method, callback, params = null) {
+            var obj;
+            try {
+                obj = new XMLHttpRequest();
+            } catch (e) {
+                try {
+                    obj = new ActiveXObject("Msxml2.XMLHTTP");
+                } catch (e) {
+                    try {
+                        obj = new ActiveXObject("Microsoft.XMLHTTP");
+                    } catch (e) {
+                        alert("Your browser does not support Ajax.");
+                        return false;
+                    }
+                }
+            }
+            obj.onreadystatechange = function () {
+                if (obj.readyState == 4) {
+                    callback(obj);
+                }
+            }
+            obj.open(method, url, true);
+            obj.send(params);
+            return obj;
+        }
+
+
+        function load() {
+            ajax("/api/movies", "get", (obj) => {
+                console.log(obj)
+            })
+        }
+
+    </script>
+
+
+    <p onclick="load()">test</p>
+</body>
+
+</html>

@@ -41,3 +41,10 @@ static/index-compiled.min.js
 static/index-compiled.min.js.map
 
 dist
+
+## phe stuff
+
+.vscode
+python_server/.venv
+python_server/__pycache__
+python_server/data
