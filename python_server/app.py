@@ -2,7 +2,9 @@ from fastapi import FastAPI, BackgroundTasks, Depends
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 from mediathek import Mediathek
+from fastapi.responses import JSONResponse
 
+import json
 import asyncio
 
 app = FastAPI()
@@ -27,4 +29,13 @@ async def root():
 @app.get("/api/movies")
 async def get_movies(mediathek: Mediathek = Depends(get_mediathek)):
     movies = list(mediathek.get_movies())
-    return {"halloe": "welt"}
+    # yield dict(zip(metadata, json.loads(re.split(r'"X":', match.group())[1])))
+    return JSONResponse(content=movies)
+
+
+@app.get("/api/state")
+async def get_state(mediathek: Mediathek = Depends(get_mediathek)):
+    return JSONResponse(content={
+        "entry_count": mediathek.entrycount,
+        "state": mediathek.state.name
+    })

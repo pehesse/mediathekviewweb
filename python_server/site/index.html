@@ -38,10 +38,27 @@
             })
         }
 
+        function getState() {
+            ajax("/api/state", "get", (obj) => {
+                const data = JSON.parse(obj.responseText)
+                document.getElementById("num-entries").innerHTML = data.entry_count
+                document.getElementById("state").innerHTML = data.state
+
+                if (data.state === "STARTED") {
+                    // load()
+                }
+            })
+        }
+
+        setInterval(() => {
+            getState()
+        }, 1000)
+
+
     </script>
+    <p>State <span id="state"></span></p>
+    <p>Entries <span id="num-entries"></span></p>
 
-
-    <p onclick="load()">test</p>
 </body>
 
 </html>
